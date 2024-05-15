@@ -62,7 +62,7 @@ def main():
                 print("Program complete. Exiting...")
                 break
             # wait for the user to press enter before running the next command
-            input("Press Enter to continue...")
+            # input("Press Enter to continue...")
             # run the next command
             shell_result = shell.run_command(response)
             
