@@ -8,4 +8,5 @@ The project uses:
 - Python for automation
 - The Chat-GPT API, both 3.5 and 4
 
-### TODO: complete this README file
+### Current state
+The project is in the ideas phase, and we're just playing around with the Chat-GPT API.

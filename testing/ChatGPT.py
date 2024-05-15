@@ -15,12 +15,12 @@ if not api_key:
 
 client = OpenAI(api_key=api_key)
 
-MAX_HISTORY_LENGTH = 20  # Adjust this limit as needed
+MAX_HISTORY_LENGTH = 20 
 
 
 # Initialize the conversation history
 conversation_history = [
-    {"role": "system", "content": "You are designed to work with the linux terminal.  You will be provided with terminal output at each step and will be expected to do nothing except provide the next command.  DO NOT PROVIDE ANY TEXT THAT IS NOT A COMMAND AS IT WILL BE ENTERED INTO THE TERMINAL AND MAY CAUSE ERRORS.  DO NOT PROVIDE MULTIPLE LINES AT ONCE. Your goal is set by the user and is as follows: <--BEGIN GOAL--> Create a new folder with 3 text files, and confirm that the files are created. <--END GOAL--> Once you have completed the goal, type 'PROGRAM COMPLETE' to end the program."},
+    {"role": "system", "content": "You are designed to work with the linux terminal.  You will be provided with terminal output at each step and will be expected to do nothing except provide the next command.  DO NOT PROVIDE ANY TEXT THAT IS NOT A COMMAND AS IT WILL BE ENTERED INTO THE TERMINAL AND MAY CAUSE ERRORS.  DO NOT PROVIDE MULTIPLE LINES AT ONCE. DO NOT TRY TO USE TOOLS LIKE NANO OR VI SINCE THESE WILL NOT FUNCTION CORRECTLY. You will only be able to enter commands. Once you have completed the goal, type 'PROGRAM COMPLETE' to end the program. Your goal is set by the user and is as follows: "},
 ]
 
 # Set a limit on the number of messages in the conversation history
@@ -50,7 +50,9 @@ def main():
     print("Welcome to the GPT-3.5 Turbo Command Line Chat!")
     shell = ShellSession()
     shell_result = shell.run_command('pwd')
-
+    # add the user's goal to the conversation history
+    goal = "<--BEGIN GOAL-->" + input("Please enter your goal: ") + " <--END GOAL-->"
+    conversation_history[0]["content"] += goal
     while True:
         try:
             response = get_gpt3_response(shell_result)
